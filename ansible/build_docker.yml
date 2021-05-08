@@ -1,0 +1,44 @@
+- name: build monitor in docker
+  hosts: monitor.test
+  tasks:
+    - name: build iamge
+      docker_image:
+        name: monitor
+        build:
+          path: /Users/nyphoon/monitor/
+        source: build
+        force_source: yes
+        state: present
+
+    - name: make compose env file
+      command: chdir=/Users/nyphoon/monitor sh ./config_gen.sh
+
+    - name: compose up containers
+      docker_compose:
+        project_src: /Users/nyphoon/monitor
+        state: present
+        files:
+          - docker-compose.yml
+
+    ######################################################
+    # - name: echo 'hello world'
+    #   command: echo 'hello world'
+    #   register: result
+
+    # - name: print stdout
+    #   debug:
+    #     msg: "{{ result.stdout }}"
+
+    # - name: Get infos on container
+    #   docker_container_info:
+    #     name: script_runner_service
+    #   register: result
+
+    # - name: Does container exist?
+    #   debug:
+    #     msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+
+    # - name: Print information about container
+    #   debug:
+    #     var: result.container
+    #   when: result.exists

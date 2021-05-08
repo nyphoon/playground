@@ -1,0 +1,17 @@
+Command:
+ansible monitor.test -a ls
+ansible all -a ls
+ansible-playbook build_docker.yml
+
+感想:
+這次玩玩Ansible來嘗試自動部署Docker，但是覺得不易上手，也遇到一些地雷。
+不易上手的部分在於playbook的設定，需要完整閱讀文件
+eg: https://docs.ansible.com/ansible/latest/collections/community/docker/
+    docker_container_module.html#ansible-collections-community-docker-docker-container-module
+重新理解所有欄位意思，無法把docker指令的經驗快速套用。
+另外在target端的環境也需要手動架設，且要小心注意，
+這次經驗中就遇到一開始裝docker套件裝到docker-py，但他是適用在python2.6，
+花了一段時間才發現要安裝docker這個python套件才對。
+然後還有踩到一個地雷是這個docker需要裝版本1.9.0(目前lastest是5.0.0)才能讓ansible運作，
+看來是似乎ansible的community支援沒這個的熱門即時，
+但個人認為有一部分也是在於playbook設定的串接不夠直接，造成整合成本較高不易維護更新。
