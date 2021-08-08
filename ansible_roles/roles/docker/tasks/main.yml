@@ -1,0 +1,20 @@
+---
+- name: build image
+  docker_image:
+    name: docker-app
+    # tag: ansible
+    build:
+      path: '{{ app_dir }}'
+    source: build
+    force_source: yes
+    state: present
+
+- name: configure
+  command: chdir={{ app_dir }} sh ./configure.sh
+
+- name: compose up containers
+  docker_compose:
+    project_src: '{{ app_dir }}'
+    state: present
+    files:
+      - docker-compose.yml

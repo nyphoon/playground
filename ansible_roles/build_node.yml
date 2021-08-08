@@ -1,0 +1,11 @@
+- name: Setup Environment
+  hosts: autonode
+  roles:
+    - python_env
+    - codebase
+
+- name: Build And Start Docker
+  hosts: autonode
+  become: yes
+  roles:
+    - docker

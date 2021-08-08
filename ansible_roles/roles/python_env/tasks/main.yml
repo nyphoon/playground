@@ -1,0 +1,19 @@
+# ref https://stackoverflow.com/questions/26402123/ansible-creating-a-virtualenv
+---
+- name: Manually create the initial virtualenv
+  command:
+    cmd: python3 -m venv {{ wd }}/venv
+    creates: "{{ wd }}/venv"
+- name: pip install --upgrade pip
+  pip:
+    name: pip
+    state: latest
+    virtualenv: "{{ wd }}/venv"
+- name: install python docker
+  pip:
+    name: docker
+    virtualenv: "{{ wd }}/venv"
+- name: install python docker-compose
+  pip:
+    name: docker-compose
+    virtualenv: "{{ wd }}/venv"

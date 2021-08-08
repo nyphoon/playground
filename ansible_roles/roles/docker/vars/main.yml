@@ -1,0 +1,2 @@
+ansible_python_interpreter: "{{ wd }}/venv/bin/python"
+app_dir: "{{ wd }}/docker-app"

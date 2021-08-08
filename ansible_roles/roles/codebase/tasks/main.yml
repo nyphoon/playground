@@ -1,0 +1,6 @@
+---
+- name: git pull/clone docker app
+  git:
+    repo: 'ssh://git@gitlab.nyphoon.me/group/docker-app.git'
+    dest: '{{ wd }}/docker-app'
+    clone: yes
